@@ -139,7 +139,7 @@ export default function Dashboard() {
         }}
       >
         <div className="p-6 pt-10">
-          <div className="flex flex-col gap-6">
+          <div className="flex flex-col gap-6 text-white">
             {/* Top Cards */}
             <div className="grid grid-cols-2 gap-6">
               <DashboardCard>

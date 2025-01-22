@@ -1,6 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using WebApplication1.Interface;
 using WebApplication1.Models;
+using System.Linq;
+using WebApplication1.DTO;
 
 namespace WebApplication1.Repository
 {
@@ -39,6 +41,27 @@ namespace WebApplication1.Repository
             {
                 throw(ex);
             }
+        }
+
+        public async Task<List<TransactionDTO>> Get5Transaction()
+        {
+            return await _context.Transactions
+                          .OrderByDescending(t => t.txnDate)
+                          .Take(5)
+                          .Select(t=> new TransactionDTO
+                          {
+                              transactionId = t.transactionId,
+                              userId = t.userId,
+                              categoriesId = t.categoriesId,
+                              txn_Type = t.txn_Type,
+                              amount = t.amount,
+                              txnDate = t.txnDate,
+                              description = t.description,
+                              recurring = t.recurring,
+                              payment_Method = t.payment_Method,
+                              currencyCode = t.currencyCode
+                          })
+                          .ToListAsync();
         }
 
         public async Task<List<Transaction>> GetTransaction()

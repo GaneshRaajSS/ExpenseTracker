@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using WebApplication1.DTO;
 using WebApplication1.Interface;
 using WebApplication1.Models;
 
@@ -113,5 +114,19 @@ namespace WebApplication1.Controllers
         {
             return _context.Transactions.Any(e => e.transactionId == id);
         }
+
+        [HttpGet("get5")]
+        public async Task<ActionResult<IEnumerable<TransactionDTO>>> Get5Transaction()
+        {
+            var transactions = await _transaction.Get5Transaction();
+
+            if (transactions == null)
+            {
+                return NotFound("No transactions found.");
+            }
+
+            return Ok(transactions);
+        }
+
     }
 }
